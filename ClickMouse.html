@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+		
+			.box{width: 550px;margin: 0 auto;text-align: center;}
+			input{width: 100px;}
+			li{width: 100px;height: 100px; background: green; border: 1px solid white;float: left;list-style: none;}
+			li:hover{cursor: url("images/hammer.png"),auto;}
+			li:active{cursor: url("images/2.png"),auto;}
+			li .mouse{width:100px;height: 100px; background: url('images/mouse.png') no-repeat green;display: none;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<input type="button" name="" id="btn1" value="开始游戏" />
+			<input type="button" name="" id="btn2" value="游戏结束" /><br /><br />
+			分数：<input id="fen" type="text" />
+			命中率：<input id="mz" type="text" />
+			倒计时：<input id="time" type="text" />			
+			<ul>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>
+				<li><div class="mouse"></div></li>				
+			</ul>		
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		var btn1=document.getElementById('btn1');
+		var btn2=document.getElementById('btn2');
+		var fen=document.getElementById('fen');
+		var mz=document.getElementById('mz');
+		var time=document.getElementById('time');
+		var li=document.getElementsByTagName('li');
+		var mouse=document.getElementsByClassName('mouse')
+		
+		
+		btn1.onclick=function(){
+			var t=0;
+			var sum=0;
+			var x=0;
+			var k=0;
+			var s=0;
+			btn2.onclick=function(){
+			t=1;
+			}
+			
+			time.value=30;
+			fen.value=0;
+			mz.value=0;
+			
+			
+			
+			var timer=setInterval(function(){
+				s++;
+				
+				
+				if(time.value==0||t==1){
+					t=0;
+					clearInterval(timer);
+					alert('游戏结束\n分数：'+fen.value+'\n命中率：'+mz.value);
+					for(var j=0;j<mouse.length;j++){
+						mouse[j].style.display='none';		
+					}
+					return;					
+				}
+				time.value--;
+				x=parseInt(Math.random()*25);
+				mouse[x].style.display='block';
+				mouse[x].style.backgroundPosition='-20px -18px';
+				mouse[x].onclick=function(){
+					
+					k++;
+					sum+=100;
+					this.style.backgroundPosition='-428px -20px';
+					
+					
+				}
+				
+				
+				for(var j=0;j<mouse.length;j++){
+				
+				if(j!=x){
+					mouse[j].style.display='none';	
+					}
+				}
+				
+				
+				fen.value=sum;
+				if((k/(s-1)*100).toFixed(2)!='NaN'){
+					mz.value=(k/(s-1)*100).toFixed(2)+'%';
+				}
+				
+				
+			},1000)
+			
+			
+		}
+		
+	</script>
+</html>
